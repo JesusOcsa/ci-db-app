@@ -4,21 +4,27 @@ on:
   push:
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Clonar repositorio
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Ejecutar Docker Compose
-        run: docker-compose up -d
+      - name: Ver versión Docker
+        run: docker --version
+
+      - name: Verificar Docker Compose
+        run: docker compose version
+
+      - name: Levantar contenedores
+        run: docker compose up -d --build
 
       - name: Esperar servicios
-        run: sleep 20
+        run: sleep 30
 
-      - name: Verificar contenedores
+      - name: Ver logs web
+        run: docker compose logs web
+
+      - name: Ver contenedores
         run: docker ps
