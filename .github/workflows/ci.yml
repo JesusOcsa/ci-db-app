@@ -1,0 +1,24 @@
+name: CI DB App
+
+on:
+  push:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Ejecutar Docker Compose
+        run: docker-compose up -d
+
+      - name: Esperar servicios
+        run: sleep 20
+
+      - name: Verificar contenedores
+        run: docker ps

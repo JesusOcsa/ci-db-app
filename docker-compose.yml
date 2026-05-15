@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: isurdb
+
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    ports:
+      - "3306:3306"
